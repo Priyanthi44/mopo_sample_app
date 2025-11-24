@@ -13,6 +13,7 @@ workMultiprocess = "2.11.0"
 roomKtx = "2.8.4"
 
 [libraries]
+androidx-compose-material-icons = { group = "androidx.compose.material", name = "material-icons-extended", version = "1.7.5" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-work-gcm = { module = "androidx.work:work-gcm", version.ref = "workMultiprocess" }
 androidx-work-multiprocess = { module = "androidx.work:work-multiprocess", version.ref = "workMultiprocess" }

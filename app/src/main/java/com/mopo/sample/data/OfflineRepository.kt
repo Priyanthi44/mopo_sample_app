@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.mopo.sample.ServiceLocator.provideApiService
 import com.mopo.sample.network.BaseApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,10 +26,24 @@ class OfflineRepository(private val dao: DataDao, private val api: BaseApi, priv
         if (pending.isNotEmpty()) {
             try {
                 api.uploadItems(pending)
-                dao.markAsSynced(pending.map { it.id })
+                dao.markAsSynced(pending.map { it.id})
             } catch (e: Exception) {
                 throw e
             }
         }
     }
+    suspend fun uploadToApi(item: DataItem): Result<DataItem> {
+        return try {
+            val response = provideApiService().postItem(item)
+
+            if (response.isSuccessful && response.body() != null) {
+                Result.success(response.body()!!)
+            } else {
+                Result.failure(Exception("Upload failed: ${response.code()} ${response.message()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }

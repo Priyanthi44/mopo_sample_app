@@ -9,10 +9,10 @@ interface DataDao {
     @Insert
     suspend fun insert(item: DataItem)
 
-    @Query("SELECT * FROM items WHERE synced = 0")
+    @Query("SELECT * FROM data_items WHERE synced = 0")
     suspend fun getPendingItems(): List<DataItem>
 
 
-    @Query("UPDATE items SET synced = 1 WHERE id IN (:ids)")
+    @Query("UPDATE data_items SET synced = 1 WHERE id IN (:ids)")
     suspend fun markAsSynced(ids: List<Long>)
 }

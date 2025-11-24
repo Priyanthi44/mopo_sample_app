@@ -95,11 +95,17 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
 
+    implementation("androidx.compose.material:material-icons-extended")
 
 // coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
 
 
+    implementation("com.google.code.gson:gson:2.10.1")
+// build.gradle (Module: app)
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
 
 
 

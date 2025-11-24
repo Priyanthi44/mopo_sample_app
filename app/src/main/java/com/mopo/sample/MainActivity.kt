@@ -1,5 +1,6 @@
 package com.mopo.sample
 
+import MainViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,14 +12,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.mopo.sample.ServiceLocator.provideMainViewModel
 import com.mopo.sample.ui.theme.Mopo_demo_appTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val repo = ServiceLocator.provideRepository(applicationContext)
-        val viewModel = MainViewModel(repo)
+
+        val viewModel = provideMainViewModel(application)
         setContent {
             MainScreen(viewModel = viewModel)
         }
