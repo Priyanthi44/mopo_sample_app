@@ -10,7 +10,7 @@ interface BaseApi {
     @POST("/upload")
     suspend fun uploadItems(@Body items: List<DataItem>)
 
-    @POST("dataitems")   // must match exactly
+    @POST("items")   // must match exactly
     suspend fun postItem(@Body item: DataItem): Response<DataItem>
 
 //    @POST("dataitem")

@@ -44,7 +44,7 @@ class MainViewModel(
             description = description,
             synced = false
         )
-
+        saveItem(item)
         viewModelScope.launch {
             val result = repo.uploadToApi(item)
             result.fold(

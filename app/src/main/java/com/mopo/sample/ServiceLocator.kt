@@ -17,7 +17,7 @@ object ServiceLocator {
 
     @Volatile
     private var repository: OfflineRepository? = null
-    private const val BASE_URL = "https://66f37ed970505c7982721d0d.mockapi.io/"
+    private const val BASE_URL = "https://6923b8ca3ad095fb84714b71.mockapi.io/api/v1/"
 
     fun provideRepository(context: Context): OfflineRepository {
         return repository ?: synchronized(this) {
