@@ -36,8 +36,19 @@ class OfflineRepository(private val dao: DataDao, private val api: BaseApi, priv
         return try {
             val response = provideApiService().postItem(item)
 
-            if (response.isSuccessful && response.body() != null) {
-                Result.success(response.body()!!)
+            if (response.isSuccessful) {
+                val uploadedItem = response.body()
+                if (uploadedItem != null) {
+                    try {
+                        // Use uploadedItem.id because MockAPI generates an ID
+                        dao.markAsSyncedOne(uploadedItem.id)
+                    } catch (e: Exception) {
+                        return Result.failure(Exception("Synced but DB update failed: ${e.message}"))
+                    }
+                    Result.success(uploadedItem)
+                } else {
+                    Result.failure(Exception("Empty response body"))
+                }
             } else {
                 Result.failure(Exception("Upload failed: ${response.code()} ${response.message()}"))
             }

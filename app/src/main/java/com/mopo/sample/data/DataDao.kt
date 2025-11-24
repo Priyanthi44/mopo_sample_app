@@ -15,4 +15,7 @@ interface DataDao {
 
     @Query("UPDATE data_items SET synced = 1 WHERE id IN (:ids)")
     suspend fun markAsSynced(ids: List<Long>)
+
+    @Query("UPDATE data_items SET synced = 1 WHERE id =:id")
+    suspend fun markAsSyncedOne(id: Long)
 }
