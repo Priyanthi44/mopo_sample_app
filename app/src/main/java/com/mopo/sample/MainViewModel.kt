@@ -51,7 +51,7 @@ class MainViewModel(
                 onSuccess = { println("Uploaded: $it")
                             _uiState.value = "Success"},
                 onFailure = { println("Upload failed: ${it.message}")
-                            _uiState.value = "Failed"}
+                            _uiState.value = "${it.message}"}
             )
         }
     }
