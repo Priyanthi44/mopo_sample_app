@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface BaseApi {
-    @POST("/upload")
+    @POST("items")
     suspend fun uploadItems(@Body items: List<DataItem>)
 
     @POST("items")   // must match exactly

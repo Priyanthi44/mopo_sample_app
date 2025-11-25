@@ -13,11 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mopo.sample.ServiceLocator.provideMainViewModel
+import com.mopo.sample.sync.SyncWorker
 import com.mopo.sample.ui.theme.Mopo_demo_appTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        SyncWorker.schedulePeriodic(this)
         enableEdgeToEdge()
 
         val viewModel = provideMainViewModel(application)

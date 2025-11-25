@@ -7,10 +7,11 @@ import androidx.work.WorkManager
 import com.mopo.sample.ServiceLocator.provideApiService
 import com.mopo.sample.network.BaseApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 
 class OfflineRepository(private val dao: DataDao, private val api: BaseApi, private val context: Context) {
-
+    val syncStatus = MutableStateFlow(false)
     suspend fun insertItem(item: DataItem) = withContext(Dispatchers.IO) {
         dao.insert(item)
     }
@@ -27,7 +28,9 @@ class OfflineRepository(private val dao: DataDao, private val api: BaseApi, priv
             try {
                 api.uploadItems(pending)
                 dao.markAsSynced(pending.map { it.id})
+                syncStatus.value = true
             } catch (e: Exception) {
+                syncStatus.value = false
                 throw e
             }
         }

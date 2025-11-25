@@ -20,6 +20,7 @@ import com.mopo.sample.data.DataItem
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
     val state = viewModel.uiState.collectAsState()
+    val syncState = viewModel.syncState.collectAsState()
     val isOnline = viewModel.isOnline.collectAsState()
     Scaffold(
         topBar = {
@@ -56,12 +57,12 @@ fun MainScreen(viewModel: MainViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
                     containerColor = if (state.value.toString().contains("Loading")) Color.Yellow.copy(alpha = 0.2f)
-                    else if (state.value.toString().contains("Success")) Color.Green.copy(alpha = 0.2f)
+                    else if (state.value.toString().contains("Success")|| syncState.value.toString().contains("Success")) Color.Green.copy(alpha = 0.2f)
                     else Color.Red.copy(alpha = 0.2f)
                 )
             ) {
                 Text(
-                    text = "Status: ${state.value}",
+                    text = "Status: ${state.value}  ${syncState.value}",
                     modifier = Modifier.padding(16.dp),
                     style = MaterialTheme.typography.bodyLarge
                 )

@@ -7,12 +7,18 @@ import androidx.work.WorkerParameters
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.mopo.sample.ServiceLocator.provideRepository
 import java.util.concurrent.TimeUnit
 
 class SyncWorker(appContext: Context, params: WorkerParameters) : CoroutineWorker(appContext, params) {
     override suspend fun doWork(): Result {
-        // perform sync: fetch pending items from DB and push to server with proper error handling
-        return Result.success()
+        val repo = provideRepository(applicationContext)
+        return try {
+            repo.performImmediateSync()       // 🔹 Call your real sync function
+            Result.success()                  // 🔹 Report success
+        } catch (e: Exception) {
+            Result.retry()                    // 🔹 Retry if failed
+        }
     }
 
     companion object {

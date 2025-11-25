@@ -21,10 +21,22 @@ class MainViewModel(
     private val _isOnline = MutableStateFlow(false)
     val isOnline: StateFlow<Boolean> = _isOnline
 
+
+    private val _syncState = MutableStateFlow("Loading...")
+    val syncState: StateFlow<String> = _syncState
+
     init {
         viewModelScope.launch {
             connectivityObserver.connectivityStatus.collect { status ->
                 _isOnline.value = (status == ConnectivityObserver.Status.Available)
+
+            }
+
+
+        }
+        viewModelScope.launch {
+            repo.syncStatus.collect { success ->
+                _syncState.value = if (success) "Sync Success" else "Sync Failed"
             }
         }
     }
