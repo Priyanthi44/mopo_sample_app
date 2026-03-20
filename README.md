@@ -27,5 +27,7 @@
 - `app/src/main/java/com/mopo/sample/sync/SyncWorker.kt` — WorkManager sync job
 - `README.md`, `ARCHITECTURE.md`, `TALKING_POINTS.md` — docs to help you present the project
 
+  [![Watch the video](https://www.youtube.com/shorts/YlcUIm3P3FI)](https://www.youtube.com/shorts/YlcUIm3P3FI)
+
 ## License
 MIT — feel free to use this demo in your application process.
